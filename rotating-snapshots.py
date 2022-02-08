@@ -1,6 +1,5 @@
 #!/bin/python3
 from calendar import week
-from pydoc import describe
 import sys
 import requests
 import datetime
