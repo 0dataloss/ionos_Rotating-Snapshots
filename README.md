@@ -1,15 +1,22 @@
+# IONOS Rotating Snapshot
+
 This script can be used to implement automatic backup procedure using Snapshots in the IONOS infrastructure.
-At the moment only the weekly backup has been implemented and will require this scrip to be set up as daily job.
+To make the script work you will have to export Username and Password as environment variable as following:
 
-The script will need as env var:
-IONOS_USERNAME
-IONOS_PASSWORD
+export IONOS_USERNAME="Your@username.com" && export IONOS_PASSWORD="yourpassw0rd"
 
-The script needs as paramenters (in this order): Volume_UUID   Datacenter_UUID  Name_Of_The_Server(only alphanumeric char)
+The parameters needed by the scripts are:
+- Datacenter_UUID
+- Volume_UUID
+- Server Tag (only alphanumeric char)
+- Rate of backup:
+    D for daily
+    W for weekly
+    M for monthly
+    Q for quarterly
+    Y for yearly
 
-Using the 'Volume_UUID', the 'day of the week' and the 'Name_Of_The_Server', the script will be able to identify and delete
-all the previous snapshots with the same values.
+The script is designed to "rotate" the snapshots, as example, if you are taking daily backups every week the snapshot taken 7 days ago will be deleted and a new one taken.
 
-The script is designed to keep only 7 snapshot online, if you need to retain som eof the smnapshot created I suggest you change the 
-Name_Of_The_Server, adding a number.
-This action will make the script ignore the snapshot taken with the old name.
+# Examples
+./rotating-snapshots.py DC_UUID Volume_UUID ServerTag DWMQY
